@@ -49,193 +49,267 @@
 //   KC_WH_U/D / KC_MS_*   → msc SCRL_UP/DN / mmv MOVE_* (needs CONFIG_ZMK_MOUSE=y)
 //   KC_BTN1/2/3           → &mkp MB1/MB2/MB3
 
-#include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/mouse.h>
 
 / {
+
     // ─── Behaviours ──────────────────────────────────────────────────
 
     behaviors {
-        // LT for Space → NAV layer (longer tapping term, matches QMK TAPPING_TERM+125)
 
-        my_mt: my_mt {
+        // LT for Space → NAV layer (longer tapping term, matches QMK TAPPING_TERM+125)
+        lt_nav_spc: lt_nav_spc {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <325>;
             quick-tap-ms = <175>;
-            bindings = <&kp>, <&kp>;
-
-            label = "MY_MT";
+            bindings = <&mo>, <&kp>;
         };
 
         // LT for O → MDIA layer (longer tapping term, matches QMK TAPPING_TERM+50)
+        lt_mdia_o: lt_mdia_o {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <175>;
+            bindings = <&mo>, <&kp>;
+        };
+
         // REV_COLON: tap = :   shift+tap = ;
+        rev_colon: rev_colon {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp COLON>, <&kp SEMI>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
         // KC_LEFT_ENCLOSE: tap = (   shift+tap = {
-        // KC_RIGHT_ENCLOSE: tap = )   shift+tap = }my_mt: my_mt {
+        lenc: lenc {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LPAR>, <&kp LBRC>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
 
-        compatible = "zmk,behavior-hold-tap";
-    };
-};
-
-// ─── Macros ──────────────────────────────────────────────────────
-
-macros {
-    // Three backticks (markdown code fence)
-
-    m_3grv: m_3grv {
-        compatible = "zmk,behavior-macro";
-        #binding-cells = <0>;
-        bindings = <&kp GRAVE &kp GRAVE &kp GRAVE>;
-    };
-};
-
-// ─── Combos ──────────────────────────────────────────────────────
-//
-// Key positions (BASE layer):
-//   N=16  E=17  I=18   →  NEI_CTRL        (timeout 30 ms — "friend" fires too easily)
-//   ,(28) .(29)        →  COMMA+DOT = ;
-//   H(27) ,(28)        →  H+COMMA   = -
-//   X(22) D(24)        →  XD_CTRL
-//   D(24) H(27)        →  DH_CTRL   (cross-half — may be unreliable over BLE)
-//   Z(21) D(24)        →  ZD_TAB
-//   NAV(36)+SYMB(37)   →  Select All  (replaces PRV_TAB+NXT_TAB which are now macros)
-
-combos {
-    compatible = "zmk,combos";
-
-    combo_left_parantheses {
-        timeout-ms = <30>;
-        key-positions = <13 12 11>;
-        bindings = <&sk LEFT_PARENTHESIS>;
+        // KC_RIGHT_ENCLOSE: tap = )   shift+tap = }
+        renc: renc {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp RPAR>, <&kp RBRC>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
     };
 
-    combo_comma_dot_semi {
-        timeout-ms = <50>;
-        key-positions = <28 29>;
-        bindings = <&kp SEMI>;
+    // ─── Macros ──────────────────────────────────────────────────────
+
+    macros {
+        // Three backticks (markdown code fence)
+        m_3grv: m_3grv {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp GRAVE &kp GRAVE &kp GRAVE>;
+        };
     };
 
-    combo_h_comma_hyphen {
-        timeout-ms = <50>;
-        key-positions = <27 28>;
-        bindings = <&kp MINUS>;
-    };
-
-    combo_right_parantheses {
-        timeout-ms = <50>;
-        key-positions = <16 17 18>;
-        bindings = <&sk RIGHT_PARENTHESIS>;
-    };
-
-    combo_zd_tab {
-        timeout-ms = <50>;
-        key-positions = <2 3 1>;
-        bindings = <&kp TAB>;
-    };
-
-    Double_Quote {
-        bindings = <&kp DOUBLE_QUOTES>;
-        key-positions = <5 6 7>;
-        timeout-ms = <50>;
-    };
-};
-
-// ─── Keymap ──────────────────────────────────────────────────────
-
-macros {
-};
-
-keymap {
-    compatible = "zmk,keymap";
-
-    // ── 0: BASE ─────────────────────────────────────────────────
+    // ─── Combos ──────────────────────────────────────────────────────
     //
-    //         Q      W      F      P      B          J      L      U      Y      ;
-    //         A      R      S      T      G          M      N      E      I    O/MDIA
-    // ESC     Z      X      C      D      V          K      H      ,      .      /      '
-    //               FUN  SPC/NAV  NUM           OSSHFT   NAV   SYMB
+    // Key positions (BASE layer):
+    //   N=16  E=17  I=18   →  NEI_CTRL        (timeout 30 ms — "friend" fires too easily)
+    //   ,(28) .(29)        →  COMMA+DOT = ;
+    //   H(27) ,(28)        →  H+COMMA   = -
+    //   X(22) D(24)        →  XD_CTRL
+    //   D(24) H(27)        →  DH_CTRL   (cross-half — may be unreliable over BLE)
+    //   Z(21) D(24)        →  ZD_TAB
+    //   NAV(36)+SYMB(37)   →  Select All  (replaces PRV_TAB+NXT_TAB which are now macros)
 
-    base {
-        bindings = <
-         &kp Q  &kp W                  &kp F  &kp P                &kp B         &kp J      &kp L                 &kp U      &kp Y                   &kp LEFT_WIN
-         &kp A  &my_mt LEFT_CONTROL R  &kp S  &my_mt LEFT_SHIFT T  &kp G         &kp M      &my_mt RIGHT_SHIFT N  &kp E      &my_mt RIGHT_CONTROL I  &kp SEMI
-&kp ESC  &kp Z  &kp X                  &kp C  &kp D                &kp V         &kp K      &kp H                 &kp COMMA  &kp DOT                 &kp FSLH      &kp SINGLE_QUOTE
-                                       &mo 1  &kp BACKSPACE        &kp DELETE    &sk ENTER  &kp SPACE             &mo 2
-        >;
+    combos {
+        compatible = "zmk,combos";
+
+        combo_nei_ctrl {
+            timeout-ms = <30>;
+            key-positions = <16 17 18>;
+            bindings = <&sk LCTRL>;
+        };
+
+        combo_comma_dot_semi {
+            timeout-ms = <50>;
+            key-positions = <28 29>;
+            bindings = <&kp SEMI>;
+        };
+
+        combo_h_comma_hyphen {
+            timeout-ms = <50>;
+            key-positions = <27 28>;
+            bindings = <&kp MINUS>;
+        };
+
+        combo_xd_ctrl {
+            timeout-ms = <50>;
+            key-positions = <22 24>;
+            bindings = <&sk LCTRL>;
+        };
+
+        combo_dh_ctrl {
+            timeout-ms = <50>;
+            key-positions = <24 27>;
+            bindings = <&sk LCTRL>;
+        };
+
+        combo_zd_tab {
+            timeout-ms = <50>;
+            key-positions = <21 24>;
+            bindings = <&kp TAB>;
+        };
+
+        combo_nav_symb_select_all {
+            timeout-ms = <50>;
+            key-positions = <36 37>;
+            bindings = <&kp LC(A)>;
+        };
     };
 
-    // ── 1: SYMB ─────────────────────────────────────────────────
-    //
-    //         -      _      =      +      \        UNDO    &      *      .    PASTE
-    //         '      "      (      )      `           :  SHFT   CTRL    ALT    GUI
-    // ___     ;      :      [      ]    ```           -      !      <      >      ?    ___
-    //               ___    ___    ENT              ___    ___    ___
+    // ─── Keymap ──────────────────────────────────────────────────────
 
-    nav {
-        bindings = <
-       &kp TAB    &kp LA(TAB)  &kp LS(UP_ARROW)    &kp EXCL      &kp GRAVE    &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LC(LS(RIGHT_ARROW))
-       &kp TILDE  &kp TAB      &kp LS(DOWN_ARROW)  &kp LEFT_ALT  &kp LC(Y)    &kp LC(LEFT)            &sk LEFT            &sk DOWN      &sk RIGHT_ARROW      &sk LC(RIGHT_ARROW)
-&none  &kp LC(Z)  &none        &none               &kp LC(C)     &kp LC(V)    &none                   &none               &none         &none                &none                    &trans
-                               &trans              &none         &none        &trans                  &kp LA(SPACE)       &trans
-        >;
+    keymap {
+        compatible = "zmk,keymap";
+
+        // ── 0: BASE ─────────────────────────────────────────────────
+        //
+        //         Q      W      F      P      B          J      L      U      Y      ;
+        //         A      R      S      T      G          M      N      E      I    O/MDIA
+        // ESC     Z      X      C      D      V          K      H      ,      .      /      '
+        //               FUN  SPC/NAV  NUM           OSSHFT   NAV   SYMB
+
+        base {
+            bindings = <
+                     &kp Q   &kp W   &kp F            &kp P   &kp B         &kp J   &kp L   &kp U     &kp Y    &kp SEMI
+                     &kp A   &kp R   &kp S            &kp T   &kp G         &kp M   &kp N   &kp E     &kp I    &lt_mdia_o 7 O
+&kp ESC              &kp Z   &kp X   &kp C            &kp D   &kp V         &kp K   &kp H   &kp COMMA &kp DOT  &kp FSLH   &kp SQT
+                             &mo 3   &lt_nav_spc 4 SPACE  &mo 2         &sk LSHFT   &mo 4   &mo 1
+            >;
+        };
+
+        // ── 1: SYMB ─────────────────────────────────────────────────
+        //
+        //         -      _      =      +      \        UNDO    &      *      .    PASTE
+        //         '      "      (      )      `           :  SHFT   CTRL    ALT    GUI
+        // ___     ;      :      [      ]    ```           -      !      <      >      ?    ___
+        //               ___    ___    ENT              ___    ___    ___
+
+        symb {
+            bindings = <
+                     &kp MINUS  &kp UNDER  &kp EQUAL  &kp PLUS   &kp BSLH      &kp LC(Z)  &kp AMPS   &kp STAR  &kp DOT   &kp LC(V)
+                     &kp SQT    &kp DQT    &lenc      &renc      &kp GRAVE     &rev_colon  &sk LSHFT  &sk LCTRL &sk LALT  &sk LGUI
+&trans               &kp SEMI   &kp COLON  &kp LBKT   &kp RBKT   &m_3grv       &kp MINUS   &kp EXCL   &kp LT    &kp GT    &kp QMARK  &trans
+                                &trans     &trans     &kp ENTER                 &trans      &trans     &trans
+            >;
+        };
+
+        // ── 2: NUM ──────────────────────────────────────────────────
+        //
+        //        TAB   LEFT     .   RIGHT     _       EVAL     7      8      9      +
+        //        GUI    ALT  CTRL   SHFT    NAV          :     4      5      6      -
+        // ___   UNDO    ___     ,      :   REDO          -     1      2      3    ___    ___
+        //               ___    ___    ___             ENT   BKSP      0
+
+        num {
+            bindings = <
+                     &kp TAB    &kp LEFT   &kp DOT    &kp RIGHT  &kp UNDER     &kp LC(LS(E))  &kp N7  &kp N8    &kp N9   &kp PLUS
+                     &sk LGUI   &sk LALT   &sk LCTRL  &sk LSHFT  &mo 4         &rev_colon     &kp N4  &kp N5    &kp N6   &kp MINUS
+&trans               &kp LC(Z)  &trans     &kp COMMA  &rev_colon &kp LC(Y)     &kp MINUS      &kp N1  &kp N2    &kp N3   &trans     &trans
+                                &trans     &trans     &trans                    &kp ENTER  &kp BSPC   &kp N0
+            >;
+        };
+
+        // ── 3: FUN ──────────────────────────────────────────────────
+        //
+        //         1      2      3      4      5       NAVLH     F7     F8     F9    F12
+        //       GUI    ALT   CTRL   SHFT    ___         ___     F4     F5     F6    F11
+        // ___     6      7      8      9      0         ___     F1     F2     F3    F10    ___
+        //               ___    ___    ___              ___   CAPS    ___
+
+        fun {
+            bindings = <
+                     &kp N1   &kp N2   &kp N3    &kp N4    &kp N5       &to 6   &kp F7  &kp F8   &kp F9   &kp F12
+                     &sk LGUI &sk LALT &sk LCTRL &sk LSHFT &trans        &trans  &kp F4  &kp F5   &kp F6   &kp F11
+&trans               &kp N6   &kp N7   &kp N8    &kp N9    &kp N0        &trans  &kp F1  &kp F2   &kp F3   &kp F10  &trans
+                              &trans   &trans    &trans                   &trans  &kp CAPS &trans
+            >;
+        };
+
+        // ── 4: NAV ──────────────────────────────────────────────────
+        //
+        //      SW_WIN PRV_TAB CLS_WIN NXT_TAB SW_APP       PGUP   HOME     UP    END   DWRD
+        //        GUI    ALT    CTRL    SHFT  NAVWIN         PGDN   LEFT   DOWN  RIGHT    SPC
+        // ___   UNDO    CUT   COPY   PASTE   REDO            ESC   BKSP    ENT    TAB    DEL   ___
+        //             MKLNK    ___   NWTB                    ENT   BKSP    ___
+
+        nav {
+            bindings = <
+                     &kp LA(TAB)  &kp LC(LS(TAB))  &kp LC(W)  &kp LC(TAB)  &kp LA(TAB)     &kp PG_UP  &kp HOME   &kp UP     &kp END    &kp LC(BSPC)
+                     &sk LGUI     &sk LALT          &sk LCTRL  &sk LSHFT    &sl 5            &kp PG_DN  &kp LEFT   &kp DOWN   &kp RIGHT  &kp SPACE
+&trans               &kp LC(Z)    &kp LC(X)         &kp LC(C)  &kp LC(V)    &kp LC(Y)        &kp ESC    &kp BSPC   &kp ENTER  &kp TAB    &kp DEL    &trans
+                                  &kp LC(K)         &trans     &kp LC(T)                     &kp ENTER  &kp BSPC   &trans
+            >;
+        };
+
+        // ── 5: NAVWIN ───────────────────────────────────────────────
+        // Momentary window switching via Alt+key (requires Raycast or similar on Windows)
+        //
+        //      LA(Q)  LA(W)  LA(F)  LA(P)  LA(B)    LA(J)  LA(7)  LA(8)  LA(9)  LA(')
+        //       GUI    ALT   CTRL   SHFT    ___      LA(M)  LA(4)  LA(5)  LA(6)  LA(O)
+        // ___  LA(Z)  LA(X)  LA(C)  LA(D)  LA(V)    LA(K)  LA(1)  LA(2)  LA(3)  LA(/)  ___
+        //              ___    ___    ___              ___    ___    ___
+
+        navwin {
+            bindings = <
+                     &kp LA(Q)  &kp LA(W)  &kp LA(F)  &kp LA(P)  &kp LA(B)     &kp LA(J)  &kp LA(N7)  &kp LA(N8)  &kp LA(N9)   &kp LA(SQT)
+                     &sk LGUI   &sk LALT   &sk LCTRL  &sk LSHFT  &trans         &kp LA(M)  &kp LA(N4)  &kp LA(N5)  &kp LA(N6)   &kp LA(O)
+&trans               &kp LA(Z)  &kp LA(X)  &kp LA(C)  &kp LA(D)  &kp LA(V)     &kp LA(K)  &kp LA(N1)  &kp LA(N2)  &kp LA(N3)   &kp LA(FSLH)  &trans
+                                &trans     &trans     &trans                     &trans     &trans      &trans
+            >;
+        };
+
+        // ── 6: NAVLH ────────────────────────────────────────────────
+        // Arrows on left hand; right hand holds mods
+        //
+        //     BASE   HOME     UP    END   PGUP        ___    ___    ___    ___    ___
+        //      SPC   LEFT   DOWN  RIGHT   PGDN        ___   SHFT   CTRL    ALT    GUI
+        // ___   DEL    TAB    ENT   BKSP    ESC        ___    ___    ___    ___    ___    ___
+        //             BASE   BASE    ___               ENT   BKSP    ___
+
+        navlh {
+            bindings = <
+                     &to 0      &kp HOME   &kp UP     &kp END    &kp PG_UP     &trans  &trans     &trans     &trans   &trans
+                     &kp SPACE  &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN     &trans  &sk LSHFT  &sk LCTRL  &sk LALT &sk LGUI
+&trans               &kp DEL    &kp TAB    &kp ENTER  &kp BSPC   &kp ESC       &trans  &trans     &trans     &trans   &trans    &trans
+                                &to 0      &to 0      &trans                    &kp ENTER  &kp BSPC  &trans
+            >;
+        };
+
+        // ── 7: MDIA ─────────────────────────────────────────────────
+        //
+        //     RESET    ___    ___    ___    ___      VOL+   PREV   MS↑   NEXT   PSCR
+        //       GUI    ALT   CTRL   SHFT    ___      VOL-   MS←    MS↓   MS→    ___
+        // ___   ___    ___    ___    ___    ___      MUTE   VOL-   PLAY  VOL+   ___    ___
+        //              ___    ___    ___             BTN3   BTN1   BTN2
+
+        mdia {
+            bindings = <
+                     &sys_reset  &trans    &trans     &trans     &trans        &kp C_VOL_UP   &kp C_PREV     &mmv MOVE_UP    &kp C_NEXT     &kp PSCRN
+                     &sk LGUI    &sk LALT  &sk LCTRL  &sk LSHFT  &trans        &kp C_VOL_DN   &mmv MOVE_LEFT &mmv MOVE_DOWN  &mmv MOVE_RIGHT &trans
+&trans               &trans      &trans    &trans     &trans     &trans        &kp C_MUTE     &kp C_VOL_DN   &kp C_PP        &kp C_VOL_UP   &trans    &trans
+                                 &trans    &trans     &trans                   &mkp MB3       &mkp MB1       &mkp MB2
+            >;
+        };
+
+        extra1 { status = "reserved"; };
+        extra2 { status = "reserved"; };
+        extra3 { status = "reserved"; };
     };
-
-    // ── 2: NUM ──────────────────────────────────────────────────
-    //
-    //        TAB   LEFT     .   RIGHT     _       EVAL     7      8      9      +
-    //        GUI    ALT  CTRL   SHFT    NAV          :     4      5      6      -
-    // ___   UNDO    ___     ,      :   REDO          -     1      2      3    ___    ___
-    //               ___    ___    ___             ENT   BKSP      0
-
-    num {
-        bindings = <
-        &none  &kp LA(TAB)  &none   &none         &none     &kp DOLLAR  &kp N7        &kp N8        &kp N9        &kp N0
-        &none  &sk TAB      &none   &sk LEFT_ALT  &none     &kp CARET   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp AT
-&trans  &none  &trans       &none   &none         &none     &kp ASTRK   &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp HASH  &kp LEFT_GUI
-                            &trans  &trans        &trans    &none       &none         &none
-        >;
-    };
-
-    // ── 3: FUN ──────────────────────────────────────────────────
-    //
-    //         1      2      3      4      5       NAVLH     F7     F8     F9    F12
-    //       GUI    ALT   CTRL   SHFT    ___         ___     F4     F5     F6    F11
-    // ___     6      7      8      9      0         ___     F1     F2     F3    F10    ___
-    //               ___    ___    ___              ___   CAPS    ___
-    // ── 4: NAV ──────────────────────────────────────────────────
-    //
-    //      SW_WIN PRV_TAB CLS_WIN NXT_TAB SW_APP       PGUP   HOME     UP    END   DWRD
-    //        GUI    ALT    CTRL    SHFT  NAVWIN         PGDN   LEFT   DOWN  RIGHT    SPC
-    // ___   UNDO    CUT   COPY   PASTE   REDO            ESC   BKSP    ENT    TAB    DEL   ___
-    //             MKLNK    ___   NWTB                    ENT   BKSP    ___
-    // ── 5: NAVWIN ───────────────────────────────────────────────
-    // Momentary window switching via Alt+key (requires Raycast or similar on Windows)
-    //
-    //      LA(Q)  LA(W)  LA(F)  LA(P)  LA(B)    LA(J)  LA(7)  LA(8)  LA(9)  LA(')
-    //       GUI    ALT   CTRL   SHFT    ___      LA(M)  LA(4)  LA(5)  LA(6)  LA(O)
-    // ___  LA(Z)  LA(X)  LA(C)  LA(D)  LA(V)    LA(K)  LA(1)  LA(2)  LA(3)  LA(/)  ___
-    //              ___    ___    ___              ___    ___    ___
-    // ── 6: NAVLH ────────────────────────────────────────────────
-    // Arrows on left hand; right hand holds mods
-    //
-    //     BASE   HOME     UP    END   PGUP        ___    ___    ___    ___    ___
-    //      SPC   LEFT   DOWN  RIGHT   PGDN        ___   SHFT   CTRL    ALT    GUI
-    // ___   DEL    TAB    ENT   BKSP    ESC        ___    ___    ___    ___    ___    ___
-    //             BASE   BASE    ___               ENT   BKSP    ___
-    // ── 7: MDIA ─────────────────────────────────────────────────
-    //
-    //     RESET    ___    ___    ___    ___      VOL+   PREV   MS↑   NEXT   PSCR
-    //       GUI    ALT   CTRL   SHFT    ___      VOL-   MS←    MS↓   MS→    ___
-    // ___   ___    ___    ___    ___    ___      MUTE   VOL-   PLAY  VOL+   ___    ___
-    //              ___    ___    ___             BTN3   BTN1   BTN2
-
-    extra1 { status = "reserved"; };
-
-    extra2 { status = "reserved"; };
-
-    extra3 { status = "reserved"; };
-};
-
 };
