@@ -46,7 +46,7 @@
         compatible = "zmk,combos";
 
         combo_left_parantheses {
-            timeout-ms = <50>;
+            timeout-ms = <60>;
             key-positions = <1 2 3>;
             bindings = <&kp LEFT_PARENTHESIS>;
         };
@@ -64,7 +64,7 @@
         };
 
         combo_right_parantheses {
-            timeout-ms = <50>;
+            timeout-ms = <60>;
             key-positions = <6 7 8>;
             bindings = <&kp RIGHT_PARENTHESIS>;
         };
