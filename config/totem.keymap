@@ -21,10 +21,11 @@
 //            ^outerL                              outerR^
 //   Thumb:  32  33  34           | 35  36  37
 
+#include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/pointing.h>
 
 / {
     // ─── Behaviours ──────────────────────────────────────────────────
@@ -37,6 +38,7 @@
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
+
             label = "MY_MT";
         };
     };
@@ -94,28 +96,28 @@
 
         base {
             bindings = <
-                     &kp Q  &kp W                  &kp F  &kp P                &kp B             &kp J      &kp L                 &kp U      &kp Y                   &kp COLON
-                     &kp A  &my_mt LEFT_CONTROL R  &kp S  &my_mt LEFT_SHIFT T  &kp G             &kp M      &my_mt RIGHT_SHIFT N  &kp E      &my_mt RIGHT_CONTROL I  &kp O
-&kp ESC              &kp Z  &kp X                  &kp C  &kp D                &kp V             &kp K      &kp H                 &kp COMMA  &kp DOT                 &kp FSLH   &kp SINGLE_QUOTE
-                                                   &mo 1  &kp BACKSPACE        &kp LEFT_SHIFT    &kp ENTER  &kp SPACE             &mo 2
+         &kp Q  &kp W                  &kp F  &kp P                &kp B    &kp J      &kp L                 &kp U      &kp Y                   &kp COLON
+         &kp A  &my_mt LEFT_CONTROL R  &kp S  &my_mt LEFT_SHIFT T  &kp G    &kp M      &my_mt RIGHT_SHIFT N  &kp E      &my_mt RIGHT_CONTROL I  &kp O
+&kp ESC  &kp Z  &kp X                  &kp C  &kp D                &kp V    &kp K      &kp H                 &kp COMMA  &kp DOT                 &kp FSLH   &kp SINGLE_QUOTE
+                                       &mo 1  &kp BACKSPACE        &mo 3    &kp ENTER  &kp SPACE             &mo 2
             >;
         };
 
         nav {
             bindings = <
-                     &none      &none  &kp LS(UP_ARROW)    &none      &none        &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LC(LS(RIGHT_ARROW))
-                     &kp LC(Z)  &none  &kp LS(DOWN_ARROW)  &none      &kp LC(Y)    &kp LC(LEFT)            &kp LEFT            &kp DOWN      &kp RIGHT            &kp LC(RIGHT_ARROW)
-&none                &none      &none  &none               &kp LC(C)  &kp LC(V)    &none                   &none               &none         &none                &none                    &trans
-                                       &none               &none      &none        &trans                  &none               &trans
+       &none      &none  &kp LS(UP_ARROW)    &none      &none        &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LC(LS(RIGHT_ARROW))
+       &kp LC(Z)  &none  &kp LS(DOWN_ARROW)  &none      &kp LC(Y)    &kp LC(LEFT)            &kp LEFT            &kp DOWN      &kp RIGHT            &kp LC(RIGHT_ARROW)
+&none  &none      &none  &none               &kp LC(C)  &kp LC(V)    &none                   &none               &none         &none                &none                    &trans
+                         &none               &none      &none        &trans                  &none               &trans
             >;
         };
 
         num {
             bindings = <
-                          &none  &none   &none         &none           &bt BT_NXT        &none     &kp N7        &kp N8        &kp N9        &kp EQUAL
-                          &none  &none   &none         &kp TAB         &bt BT_CLR        &kp NUBS  &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp MINUS
-&kp LEFT_WIN              &none  &trans  &none         &kp LA(SPACE)   &bt BT_CLR_ALL    &kp N0    &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp PLUS   &kp LEFT_GUI
-                                         &kp LEFT_ALT  &kp LEFT_SHIFT  &trans            &none     &none         &none
+              &none  &none   &none           &none          &bt BT_NXT        &none     &kp N7        &kp N8        &kp N9        &kp EQUAL
+              &none  &none   &none           &kp TAB        &bt BT_CLR        &kp NUBS  &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp MINUS
+&kp LEFT_WIN  &none  &trans  &none           &kp LA(SPACE)  &bt BT_CLR_ALL    &kp N0    &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp PLUS   &kp LEFT_GUI
+                             &kp LEFT_SHIFT  &kp LEFT_ALT   &trans            &none     &none         &none
             >;
         };
 
@@ -128,10 +130,10 @@
 
         fun_mouse {
             bindings = <
-                     &kp F1   &kp F2   &kp F3   &kp F4   &kp F5      &none      &none            &mmv MOVE_UP    &none             &none
-                     &kp F6   &kp F7   &kp F8   &kp F9   &kp F10     &none      &mmv MOVE_LEFT   &mmv MOVE_DOWN  &mmv MOVE_RIGHT   &none
-&none                &kp F11  &kp F12  &none    &none    &none       &none      &none            &none           &none             &none    &none
-                              &trans   &trans   &trans               &mkp MB1   &mkp MB2         &mkp MB3
+       &none  &kp F7  &kp F8  &kp F9  &kp F10    &none     &msc SCRL_UP    &mmv MOVE_UP    &msc SCRL_DOWN   &none
+       &none  &kp F4  &kp F5  &kp F6  &kp F11    &none     &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none
+&none  &none  &kp F1  &kp F2  &kp F3  &kp F12    &none     &none           &none           &none            &none  &none
+                      &trans  &trans  &trans     &mkp MB1  &mkp MB2        &mkp MB3
             >;
         };
 
