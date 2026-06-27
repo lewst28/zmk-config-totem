@@ -25,6 +25,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
 
 / {
     // ─── Behaviours ──────────────────────────────────────────────────
@@ -114,7 +115,7 @@
         num {
             bindings = <
               &none  &none   &none           &none          &bt BT_NXT        &none     &kp N7        &kp N8        &kp N9        &kp EQUAL
-              &none  &none   &none           &kp TAB        &bt BT_CLR        &kp NUBS  &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp MINUS
+              &none  &none   &kp TAB         &none          &bt BT_CLR        &kp NUBS  &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp MINUS
 &kp LEFT_WIN  &none  &trans  &none           &kp LA(SPACE)  &bt BT_CLR_ALL    &kp N0    &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp PLUS   &kp LEFT_GUI
                              &kp LEFT_SHIFT  &kp LEFT_ALT   &trans            &none     &none         &none
             >;
@@ -132,7 +133,7 @@
        &none  &kp F7  &kp F8  &kp F9  &kp F10    &none     &msc SCRL_UP    &mmv MOVE_UP    &msc SCRL_DOWN   &none
        &none  &kp F4  &kp F5  &kp F6  &kp F11    &none     &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none
 &none  &none  &kp F1  &kp F2  &kp F3  &kp F12    &none     &none           &none           &none            &none  &none
-                      &trans  &trans  &trans     &mkp MB1  &mkp MB2        &mkp MB3
+                      &none   &none   &none      &mkp MB1  &mkp MB2        &mkp MB3
             >;
         };
 
