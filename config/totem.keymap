@@ -28,7 +28,6 @@
     // ─── Behaviours ──────────────────────────────────────────────────
 
     behaviors {
-
         my_mt: my_mt {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -36,6 +35,7 @@
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
+
             label = "MY_MT";
         };
     };
@@ -89,28 +89,28 @@
 
         base {
             bindings = <
-                     &kp Q  &kp W                  &kp F  &kp P                &kp B         &kp J      &kp L                 &kp U      &kp Y                   &kp LEFT_WIN
-                     &kp A  &my_mt LEFT_CONTROL R  &kp S  &my_mt LEFT_SHIFT T  &kp G         &kp M      &my_mt RIGHT_SHIFT N  &kp E      &my_mt RIGHT_CONTROL I  &kp SEMI
-&kp ESC              &kp Z  &kp X                  &kp C  &kp D                &kp V         &kp K      &kp H                 &kp COMMA  &kp DOT                 &kp FSLH      &kp SINGLE_QUOTE
-                                                   &mo 1  &kp BACKSPACE        &kp DELETE    &kp ENTER  &kp SPACE             &mo 2
+         &kp Q  &kp W                  &kp F  &kp P                &kp B         &kp J      &kp L                 &kp U      &kp Y                   &kp LEFT_WIN
+         &kp A  &my_mt LEFT_CONTROL R  &kp S  &my_mt LEFT_SHIFT T  &kp G         &kp M      &my_mt RIGHT_SHIFT N  &kp E      &my_mt RIGHT_CONTROL I  &kp SEMI
+&kp ESC  &kp Z  &kp X                  &kp C  &kp D                &kp V         &kp K      &kp H                 &kp COMMA  &kp DOT                 &kp FSLH      &kp SINGLE_QUOTE
+                                       &mo 1  &kp BACKSPACE        &kp DELETE    &kp ENTER  &kp SPACE             &mo 2
             >;
         };
 
         nav {
             bindings = <
-                     &kp TAB    &kp LA(TAB)  &kp LS(UP_ARROW)    &kp EXCL      &kp GRAVE    &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LC(LS(RIGHT_ARROW))
-                     &kp TILDE  &kp TAB      &kp LS(DOWN_ARROW)  &kp LEFT_ALT  &kp LC(Y)    &kp LC(LEFT)            &kp LEFT            &kp DOWN      &kp RIGHT            &kp LC(RIGHT_ARROW)
-&none                &kp LC(Z)  &none        &none               &kp LC(C)     &kp LC(V)    &none                   &none               &none         &none                &none                    &trans
-                                             &trans              &none         &none        &trans                  &kp LA(SPACE)       &trans
+       &kp TAB    &kp LA(TAB)  &kp LS(UP_ARROW)    &kp EXCL      &kp GRAVE    &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LC(LS(RIGHT_ARROW))
+       &kp TILDE  &kp TAB      &kp LS(DOWN_ARROW)  &kp LEFT_ALT  &kp LC(Y)    &kp LC(LEFT)            &kp LEFT            &kp DOWN      &kp RIGHT            &kp LC(RIGHT_ARROW)
+&none  &kp LC(Z)  &none        &none               &kp LC(C)     &kp LC(V)    &none                   &none               &none         &none                &none                    &trans
+                               &trans              &none         &none        &trans                  &kp LA(SPACE)       &trans
             >;
         };
 
         num {
             bindings = <
-                     &none  &kp LA(TAB)  &none   &none         &none     &kp DOLLAR  &kp N7        &kp N8        &kp N9        &kp N0
-                     &none  &kp TAB      &none   &kp LEFT_ALT  &none     &kp CARET   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp AT
-&trans               &none  &trans       &none   &none         &none     &kp ASTRK   &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp HASH  &kp LEFT_GUI
-                                         &trans  &trans        &trans    &none       &none         &none
+        &none  &kp LA(TAB)  &none   &none           &none     &kp DOLLAR  &kp N7        &kp N8        &kp N9        &kp N0
+        &none  &kp TAB      &none   &kp LEFT_SHIFT  &none     &kp CARET   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp AT
+&trans  &none  &trans       &none   &none           &none     &kp ASTRK   &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp HASH  &kp LEFT_GUI
+                            &trans  &trans          &trans    &none       &none         &none
             >;
         };
 
@@ -120,5 +120,4 @@
 
         extra3 { status = "reserved"; };
     };
-
 };
