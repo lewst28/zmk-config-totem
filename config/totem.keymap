@@ -47,7 +47,7 @@
 
         combo_left_parantheses {
             timeout-ms = <60>;
-            key-positions = <1 2 3>;
+            key-positions = <2 3>;
             bindings = <&kp LEFT_PARENTHESIS>;
         };
 
@@ -65,7 +65,7 @@
 
         combo_right_parantheses {
             timeout-ms = <60>;
-            key-positions = <6 7 8>;
+            key-positions = <7 6>;
             bindings = <&kp RIGHT_PARENTHESIS>;
         };
 
