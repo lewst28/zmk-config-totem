@@ -77,7 +77,7 @@
 
         Double_Quote {
             bindings = <&kp DOUBLE_QUOTES>;
-            key-positions = <5 6 7>;
+            key-positions = <17 18>;
             timeout-ms = <50>;
         };
     };
