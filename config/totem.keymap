@@ -144,6 +144,9 @@ combos {
 
 // ─── Keymap ──────────────────────────────────────────────────────
 
+macros {
+};
+
 keymap {
     compatible = "zmk,keymap";
 
@@ -156,10 +159,10 @@ keymap {
 
     base {
         bindings = <
-         &kp Q  &kp W  &kp F  &kp P                    &kp B         &kp J      &kp L                 &kp U      &kp Y    &kp LEFT_WIN
-         &kp A  &kp R  &kp S  &my_mt LEFT_SHIFT T      &kp G         &kp M      &my_mt RIGHT_SHIFT N  &kp E      &kp I    &kp SEMI
-&kp ESC  &kp Z  &kp X  &kp C  &kp D                    &kp V         &kp K      &kp H                 &kp COMMA  &kp DOT  &kp FSLH      &kp SINGLE_QUOTE
-                       &mo 2  &lt_nav_spc 1 BACKSPACE  &kp DELETE    &sk ENTER  &kp SPACE             &mo 1
+         &kp Q  &kp W                  &kp F  &kp P                &kp B         &kp J      &kp L                 &kp U      &kp Y                   &kp LEFT_WIN
+         &kp A  &my_mt LEFT_CONTROL R  &kp S  &my_mt LEFT_SHIFT T  &kp G         &kp M      &my_mt RIGHT_SHIFT N  &kp E      &my_mt RIGHT_CONTROL I  &kp SEMI
+&kp ESC  &kp Z  &kp X                  &kp C  &kp D                &kp V         &kp K      &kp H                 &kp COMMA  &kp DOT                 &kp FSLH      &kp SINGLE_QUOTE
+                                       &mo 1  &kp BACKSPACE        &kp DELETE    &sk ENTER  &kp SPACE             &mo 2
         >;
     };
 
