@@ -98,28 +98,28 @@
 
         base {
             bindings = <
-         &kp Q  &kp W                  &kp F  &kp P                &kp B    &kp J      &kp L                 &kp U      &kp Y                   &kp COLON
-         &kp A  &my_mt LEFT_CONTROL R  &kp S  &my_mt LEFT_SHIFT T  &kp G    &kp M      &my_mt RIGHT_SHIFT N  &kp E      &my_mt RIGHT_CONTROL I  &kp O
-&kp ESC  &kp Z  &kp X                  &kp C  &kp D                &kp V    &kp K      &kp H                 &kp COMMA  &kp DOT                 &kp FSLH   &kp SINGLE_QUOTE
-                                       &mo 1  &kp BACKSPACE        &mo 3    &kp ENTER  &kp SPACE             &mo 2
+         &kp Q  &kp W                  &kp F              &kp P                &kp B    &kp J      &kp L                 &kp U               &kp Y                   &kp COLON
+         &kp A  &my_mt LEFT_CONTROL R  &my_mt LEFT_ALT S  &my_mt LEFT_SHIFT T  &kp G    &kp M      &my_mt RIGHT_SHIFT N  &my_mt RIGHT_ALT E  &my_mt RIGHT_CONTROL I  &kp O
+&kp ESC  &kp Z  &kp X                  &kp C              &kp D                &kp V    &kp K      &kp H                 &kp COMMA           &kp DOT                 &kp FSLH   &kp SINGLE_QUOTE
+                                       &mo 1              &kp BACKSPACE        &mo 3    &kp ENTER  &kp SPACE             &mo 2
             >;
         };
 
         nav {
             bindings = <
-       &none      &none  &kp LS(UP_ARROW)    &none      &none        &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LC(LS(RIGHT_ARROW))
-       &kp LC(Z)  &none  &kp LS(DOWN_ARROW)  &none      &kp LC(Y)    &kp LC(LEFT)            &kp LEFT            &kp DOWN      &kp RIGHT            &kp LC(RIGHT_ARROW)
-&none  &none      &none  &none               &kp LC(C)  &kp LC(V)    &none                   &none               &none         &none                &none                    &trans
+       &none      &none  &kp LS(UP_ARROW)    &none      &none        &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LS(LC(RIGHT_ARROW))
+       &kp LC(Z)  &none  &kp LS(DOWN_ARROW)  &none      &kp LC(Y)    &kp HOME                &kp LEFT            &kp DOWN      &kp RIGHT            &none
+&none  &none      &none  &none               &kp LC(C)  &kp LC(V)    &kp END                 &kp LC(LEFT)        &none         &kp LC(RIGHT_ARROW)  &none                    &trans
                          &trans              &trans     &trans       &trans                  &none               &trans
             >;
         };
 
         num {
             bindings = <
-              &none  &none   &none           &none          &bt BT_NXT        &kp GRAVE  &kp N7        &kp N8        &kp N9        &kp EQUAL
-              &none  &none   &kp TAB         &none          &bt BT_CLR        &kp NUBS   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp MINUS
-&kp LEFT_WIN  &none  &trans  &none           &kp LA(SPACE)  &bt BT_CLR_ALL    &kp N0     &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp PLUS   &kp LEFT_GUI
-                             &kp LEFT_SHIFT  &kp LEFT_ALT   &trans            &none      &none         &none
+              &none           &none   &none    &none          &bt BT_NXT        &kp GRAVE  &kp N7        &kp N8        &kp N9        &kp EQUAL
+              &kp LEFT_SHIFT  &none   &kp TAB  &none          &bt BT_CLR        &kp NUBS   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp MINUS
+&kp LEFT_WIN  &none           &trans  &none    &kp LA(SPACE)  &bt BT_CLR_ALL    &kp N0     &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp PLUS   &kp LEFT_GUI
+                                      &none    &kp LEFT_ALT   &trans            &none      &none         &none
             >;
         };
 
