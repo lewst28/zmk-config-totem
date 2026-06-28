@@ -107,10 +107,10 @@
 
         nav {
             bindings = <
-       &none             &none  &kp LS(UP_ARROW)    &none      &none        &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW  &kp LS(RIGHT_ARROW)  &kp LS(LC(RIGHT_ARROW))
-       &kp LC(Z)         &none  &kp LS(DOWN_ARROW)  &none      &kp LC(Y)    &kp END                 &kp LEFT            &kp DOWN      &kp RIGHT            &none
-&none  &kp LEFT_CONTROL  &none  &none               &kp LC(C)  &kp LC(V)    &kp HOME                &kp LC(LEFT)        &none         &kp LC(RIGHT_ARROW)  &none                    &trans
-                                &trans              &trans     &trans       &trans                  &none               &trans
+       &none             &none  &kp LS(UP_ARROW)    &none      &none        &kp LC(LS(LEFT_ARROW))  &kp LS(LEFT_ARROW)  &kp UP_ARROW   &kp LS(RIGHT_ARROW)  &kp LS(LC(RIGHT_ARROW))
+       &kp LC(Z)         &none  &kp LS(DOWN_ARROW)  &none      &kp LC(Y)    &kp LC(LEFT_ARROW)      &kp LEFT            &kp DOWN       &kp RIGHT            &kp LC(RIGHT_ARROW)
+&none  &kp LEFT_CONTROL  &none  &none               &kp LC(C)  &kp LC(V)    &none                   &kp HOME            &kp BACKSPACE  &kp END              &none                    &kp DEL
+                                &trans              &trans     &trans       &trans                  &trans              &trans
             >;
         };
 
