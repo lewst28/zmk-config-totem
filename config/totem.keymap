@@ -101,7 +101,7 @@
          &kp Q  &kp W                  &kp F              &kp P                &kp B            &kp J      &kp L                 &kp U               &kp Y                   &kp COLON
          &kp A  &my_mt LEFT_CONTROL R  &my_mt LEFT_ALT S  &my_mt LEFT_SHIFT T  &kp G            &kp M      &my_mt RIGHT_SHIFT N  &my_mt RIGHT_ALT E  &my_mt RIGHT_CONTROL I  &kp O
 &kp ESC  &kp Z  &kp X                  &kp C              &kp D                &kp V            &kp K      &kp H                 &kp COMMA           &kp DOT                 &kp FSLH   &kp SINGLE_QUOTE
-                                       &mo 1              &mo 3                &kp BACKSPACE    &kp ENTER  &kp SPACE             &mo 2
+                                       &mo 3              &mo 1                &kp BACKSPACE    &kp ENTER  &kp SPACE             &mo 2
             >;
         };
 
